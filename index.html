@@ -2,71 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dan's Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dan Adoration | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>Hi, I'm Dan</h1>
-    <p>Cybersecurity Enthusiast | Java Developer</p>
+  <header class="hero">
+    <img src="profile.jpg" alt="Profile picture" class="profile-pic" />
+    <h1 class="typewriter"></h1>
+    <p>Cybersecurity enthusiast & backend developer.</p>
+    <a href="#projects" class="btn">View Projects</a>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I’m a CS student passionate about cybersecurity, backend systems, and building real tools that solve real problems.</p>
-  </section>
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>I'm a Computer Science student with a passion for secure systems, software architecture, and writing clean code. I build things that work and scale — from CLI tools to full-stack apps.</p>
+    </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>Languages: Java, Python, SQL</li>
-      <li>Cyber Tools: Nmap, Wireshark, Burp Suite</li>
-      <li>Cloud: Oracle Cloud (OCI), Azure (SC-900 in progress)</li>
-    </ul>
-  </section>
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>Languages: Java, Python, SQL</li>
+        <li>Cyber Tools: Nmap, Wireshark, Burp Suite</li>
+        <li>Cloud: Oracle OCI, Azure (SC-900)</li>
+      </ul>
+    </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div id="project-cards" class="cards-container">
-      <!-- Project cards will load here -->
-    </div>
-  </section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div id="project-cards" class="cards-container"></div>
+    </section>
 
-  <section id="certifications">
-    <h2>Certifications</h2>
-    <ul>
-      <li>OCI Foundations Associate</li>
-      <li>Microsoft SC-900 (In Progress)</li>
-    </ul>
-  </section>
+    <section id="resume">
+      <h2>Resume</h2>
+      <a href="resume.docx" class="btn" download>Download Resume</a>
+    </section>
 
-  <section id="resume">
-    <h2>Resume</h2>
-    <a href="Ntiyiso_Bila_Updated_CV.docx" download class="btn">Download My Resume</a>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form id="contact-form">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required />
-
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="4" required></textarea>
-
-      <button type="submit" class="btn">Send</button>
-    </form>
-    <p id="form-status"></p>
-  </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <form id="contact-form">
+        <input type="text" id="name" name="name" placeholder="Your Name" required />
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+      <p id="form-status"></p>
+    </section>
+  </main>
 
   <footer>
-    <p>GitHub: <a href="https://github.com/danielAd0" target="_blank" rel="noopener noreferrer">github.com/danielAd0</a></p>
+    <p>© 2025 Dan Adoration · <a href="https://github.com/danielAd0" target="_blank">GitHub</a></p>
   </footer>
 
+  <!-- Load EmailJS first -->
+  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+  <!-- Then your main script -->
   <script src="script.js"></script>
 </body>
 </html>

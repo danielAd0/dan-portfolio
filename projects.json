@@ -1,10 +1,14 @@
 [
   {
-    "title": "Inventory Management System",
-    "description": "Java + SQLite desktop app for tracking stock."
+    "title": "Task Manager App",
+    "description": "Java Swing desktop app for managing tasks with SQLite backend."
   },
   {
-    "title": "Port Scanner",
-    "description": "Python CLI tool to scan open ports on a target."
+    "title": "Port Scanner CLI",
+    "description": "Python tool for scanning open ports on a host using sockets."
+  },
+  {
+    "title": "Expense Tracker",
+    "description": "OOP Java-based student expense tracker with file storage."
   }
 ]

@@ -1,56 +1,90 @@
-// Load projects dynamically from projects.json
+// Typewriter effect
+const typewriter = document.querySelector('.typewriter');
+const words = ["Hey, I'm Dan.", "I'm a Cybersecurity Nerd.", "I Code. I Build. I Secure."];
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function type() {
+  const current = words[wordIndex];
+  const displayed = current.slice(0, charIndex);
+  typewriter.textContent = displayed;
+
+  if (!isDeleting && charIndex < current.length) {
+    charIndex++;
+    setTimeout(type, 100);
+  } else if (isDeleting && charIndex > 0) {
+    charIndex--;
+    setTimeout(type, 60);
+  } else {
+    isDeleting = !isDeleting;
+    if (!isDeleting) wordIndex = (wordIndex + 1) % words.length;
+    setTimeout(type, 1000);
+  }
+}
+type();
+
+// Load projects from JSON (needs to run on a server, not file://)
 fetch('projects.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(projects => {
     const container = document.getElementById('project-cards');
-    projects.forEach(proj => {
+    projects.forEach(p => {
       const card = document.createElement('div');
-      card.classList.add('project-card');
-      card.innerHTML = `
-        <h3>${proj.title}</h3>
-        <p>${proj.description}</p>
-      `;
+      card.className = 'project-card';
+      card.innerHTML = `<h3>${p.title}</h3><p>${p.description}</p>`;
       container.appendChild(card);
     });
   })
-  .catch(err => console.error('Failed to load projects:', err));
+  .catch(err => {
+    console.error("Failed to load projects.json. Likely due to CORS - run via Live Server.", err);
+  });
 
-// Contact form handling with EmailJS (you'll need to setup your EmailJS account)
-const form = document.getElementById('contact-form');
-const status = document.getElementById('form-status');
+// Animate on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = 1;
+      entry.target.style.transform = "translateY(0)";
+    }
+  });
+}, { threshold: 0.1 });
 
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
+document.querySelectorAll("section").forEach(section => {
+  observer.observe(section);
+});
 
-  // Simple validation
-  if (!form.name.value || !form.email.value || !form.message.value) {
-    status.textContent = 'Please fill in all fields.';
-    status.style.color = 'red';
+// EmailJS setup (wait until DOM is ready)
+document.addEventListener("DOMContentLoaded", () => {
+  const serviceID = 'service_wqj16oq';
+  const templateID = 'template_veo36ao';
+  const publicKey = 'U-cU7EwFrzHU6gcrK';
+
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init(publicKey);
+  } else {
+    console.error("EmailJS not loaded");
     return;
   }
 
-  // Replace with your own EmailJS user ID and template ID
-  const YOUR_SERVICE_ID = 'service_wqj16oq';
-  const YOUR_TEMPLATE_ID = 'template_veo36ao';
-  const YOUR_PUBLIC_KEY = 'U-cU7EwFrzHU6gcrK';
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const status = document.getElementById('form-status');
 
-  status.textContent = 'Sending...';
-  status.style.color = 'white';
-
-  emailjs.init(YOUR_PUBLIC_KEY);
-
-  emailjs.send(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, {
-    from_name: form.name.value,
-    from_email: form.email.value,
-    message: form.message.value,
-  })
+    emailjs.send(serviceID, templateID, {
+      from_name: document.getElementById("name").value,
+      from_email: document.getElementById("email").value,
+      message: document.getElementById("message").value
+    })
     .then(() => {
-      status.textContent = 'Message sent! Thank you.';
-      status.style.color = 'lightgreen';
+      status.textContent = "✅ Message sent!";
+      status.style.color = "green";
       form.reset();
-    }, (error) => {
-      console.error('FAILED...', error);
-      status.textContent = 'Failed to send message. Try again later.';
-      status.style.color = 'red';
+    }, (err) => {
+      console.error("EmailJS error:", err);
+      status.textContent = "❌ Failed to send. Try again.";
+      status.style.color = "red";
     });
+  });
 });
