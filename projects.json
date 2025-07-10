@@ -1,0 +1,10 @@
+[
+  {
+    "title": "Inventory Management System",
+    "description": "Java + SQLite desktop app for tracking stock."
+  },
+  {
+    "title": "Port Scanner",
+    "description": "Python CLI tool to scan open ports on a target."
+  }
+]
